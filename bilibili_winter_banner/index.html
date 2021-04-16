@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+	</head>
+	<body>
+		<header>
+			<div class="view">
+				<img src="./assets/bilibili-winter-view-1.jpg" class="morning" alt="">
+				<img src="./assets/bilibili-winter-view-2.jpg" class="afternoon" alt="">
+				<video autoplay loop muted class="evening">
+					<source src="./assets/bilibili-winter-view-3.webm" type="video/webm" />
+				</video>
+				<img src="./assets/bilibili-winter-view-3-snow.png" class="window-cover" alt="">
+			</div>
+
+			<div class="tree">
+				<img src="./assets/bilibili-winter-tree-1.png" class="morning" alt="">
+				<img src="./assets/bilibili-winter-tree-2.png" class="afternoon" alt="">
+				<img src="./assets/bilibili-winter-tree-3.png" class="evening" alt="">
+			</div>
+		</header>
+		<script type="text/javascript">
+			let startingPoint
+			const header = document.querySelector('header')
+
+			header.addEventListener('mouseenter', (e) => {
+				// 鼠标进入时,记录坐标为startpoint
+				startingPoint = e.clientX
+				header.classList.add('moving')
+			})
+
+			header.addEventListener('mouseout', (e) => {
+				// 鼠标离开,重新设定为0.5
+				header.classList.remove('moving')
+				header.style.setProperty('--percentage', 0.5)
+			})
+
+			header.addEventListener('mousemove', (e) => {
+				// e.clientX - startingPoint初始值为0,总初始值为0.5
+				let percentage = (e.clientX - startingPoint) / window.outerWidth + 0.5
+
+				header.style.setProperty('--percentage', percentage)
+			})
+		</script>
+	</body>
+</html>

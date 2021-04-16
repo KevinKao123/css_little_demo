@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./style.css"/>
+	</head>
+	<body>
+		<h1>Up to 20 hours of battery life — the longest in any Mac ever.</h1>
+		
+		<div class="buttons">
+		  <button id="empty">0%</button>
+		  <button id="full">100%</button>
+		</div>
+		
+	</body>
+	<script type="text/javascript">
+		let progress = 0
+		
+		function run() {
+		  if (progress < 1) {
+			  // toFixed(2)转换为两位小数(字符串),在用parseFloat转换为数字
+		    progress = parseFloat((progress + 0.01).toFixed(2))
+			
+			
+		    document.querySelector('h1').style.setProperty('--progress', progress)
+		    
+			// 设置循环执行，0.02秒一次
+		    setTimeout(run, 20)
+		  }
+		}
+		
+		document.querySelector('#empty').addEventListener('click', (e) => {
+		  progress = 0
+		  document.querySelector('h1').style.setProperty('--progress', progress)
+		})
+		
+		document.querySelector('#full').addEventListener('click', (e) => {
+		  run()
+		})
+	</script>
+</html>

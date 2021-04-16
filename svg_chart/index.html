@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="index.css">
+		<style>
+			body {
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0;
+				margin: 0;
+			}
+
+			div {
+				width: 500px;
+				height: 500px;
+				border: 1px solid salmon;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header></header>
+		<div>
+			<!-- 0 0 代表viewBox左上角位置 宽200 高100 -->
+			<svg viewBox="0 0 200 100" id="chart">
+				<!-- 向下移动100px 上下翻转 符合数学坐标系直觉 -->
+				<g transform="translate(0,100) scale(1,-1)">
+					<!-- 线条粗细3 线条两端样式 线条交接位置都为圆角 -->
+					<!-- 定位四个点的坐标 -->
+					<path fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" id="line"
+						d="M20,20 40,40 60,20 80,40" />
+				</g>
+			</svg>
+		</div>
+		<h1>You are not alone</h1>
+		<script src="./index.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,75 @@
+body {
+	margin: 0;
+}
+
+header {
+	height: 160px;
+	position: relative;
+	overflow: hidden;
+
+	--percentage: 0.5;
+}
+
+header .view,
+header .tree {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+header img,
+header video {
+	position: absolute;
+	display: block;
+	width: 120%;
+	height: 100%;
+	/* 达到类似background适配屏幕的效果 */
+	object-fit: cover;
+}
+
+/* 使用相同的类名，同时应用到背景和树上 */
+header .morning {
+	z-index: 20;
+	opacity: calc(1 - (var(--percentage) - 0.25) / 0.25);
+}
+
+header .afternoon {
+	z-index: 10;
+	opacity: calc(1 - (var(--percentage) - 0.5) / 0.5);
+}
+
+/* 背景与前景有视觉差,移动速率不同 */
+header .view {
+	transform: translatex(calc(var(--percentage) * 100px));
+}
+
+header .tree {
+	transform: translatex(calc(var(--percentage) * 50px));
+	/* 将树模糊化 */
+	filter: blur(3px);
+}
+
+/* 鼠标离开时图片回撤效果 */
+header .view,
+header .tree,
+header .morning,
+header .afternoon {
+	transition: .2s all ease-in;
+}
+
+header.moving .view,
+header.moving .tree,
+header.moving .morning,
+header.moving .afternoon {
+	transition: none;
+}
+
+/* 移动到最后才出现窗户起雾效果 */
+header .window-cover {
+	opacity: calc((var(--percentage) - 0.9) / 0.1);
+}

@@ -1,0 +1,43 @@
+:root {
+	--percentage: 0%;
+}
+
+body {
+	background-color: #000;
+	margin: 0;
+	height: 300vh;
+}
+
+.sticky {
+	position: sticky;
+	top: 0;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+h1 {
+	font-family: Helvetica;
+	margin: 0;
+	padding: 0;
+	font-size: 48px;
+	color: #fff;
+	letter-spacing: -0.3px;
+	/* 渐层倾斜度75deg,颜色分为四段两个白色两个透明的白色 */
+	background-image: linear-gradient(75deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 33.33%, rgba(255, 255, 255, 0) 66.67%, rgba(255, 255, 255, 0) 100%);
+	/* 将背景渐层拉伸三倍宽度 */
+	background-size: 300% 100%;
+	/* 背景渐层位置 */
+	background-position-x: calc(100% - var(--percentage));
+	/* 将渐层色套用到文字上 */
+	background-clip: text;
+	-webkit-background-clip: text;
+	/* 将文字颜色设置为透明 */
+	color: transparent;
+	
+	/* transition: 2s background-position-x ease-in-out; */
+}
+/* h1:hover{
+	background-position-x: 0%;
+} */
