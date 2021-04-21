@@ -7,12 +7,16 @@ window.addEventListener('scroll', (e) => {
 	console.log(scrolled);
 
 	let $h1 = document.querySelector('h1')
+	// svg的父容器
 	let $theChip = document.querySelector('#the-chip')
+	// a13的svg
 	let $A13 = document.querySelector('#A13')
+	// a13的背景颜色
 	let $A13TextBg = document.querySelector('#the-chip .text-bg')
 
 	// scrolld的三次方制造加速度效果
 	// https://easings.net/ja
+	// 放大到最大svg大小等于页面宽度的20倍
 	$theChip.style.width = $theChip.style.height = document.documentElement.clientWidth * 20 * (scrolled *
 		scrolled * scrolled) + 'px'
 
@@ -38,6 +42,7 @@ window.addEventListener('scroll', (e) => {
 	}
 
 	if (scrolled >= 0.95) {
+		// 将多余部分渐渐淡出透明
 		$theChip.style.opacity = (1 - scrolled) / 0.05
 	} else {
 		$theChip.style.opacity = 1
