@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+	</head>
+	<body>
+		<!-- Tutorial: https://youtu.be/ULMksUfcUsk -->
+
+		<div class="glass">
+			<ul class="dock">
+				<li>😃</li>
+				<li>😊</li>
+				<li>😜</li>
+				<li>😍</li>
+				<li>🤩</li>
+				<li>🥳</li>
+				<li>🥶</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			document.querySelectorAll('.dock li').forEach(li => {
+				li.addEventListener('click', e => {
+					// e.currentTarget.classList.add('loading')
+					e.currentTarget.classList.toggle('loading')
+				})
+
+				li.addEventListener('mousemove', e => {
+					let item = e.target
+					// li的宽度
+					let itemRect = item.getBoundingClientRect()
+					// 鼠标移动到左边,offset=0,右边offect=1 
+					let offset = Math.abs(e.clientX - itemRect.left) / itemRect.width
+					// 获取鼠标指向图标的前一个和下一个图标li)
+					let prev = item.previousElementSibling || null
+					let next = item.nextElementSibling || null
+
+					let scale = 0.6
+
+
+
+					resetScale()
+
+					if (prev) {
+						prev.style.setProperty('--scale', 1 + scale * Math.abs(offset - 1))
+					}
+
+					item.style.setProperty('--scale', 1 + scale)
+
+					if (next) {
+						next.style.setProperty('--scale', 1 + scale * offset)
+					}
+				})
+			})
+
+			// 当鼠标离开dock的时候
+			document.querySelector('.dock').addEventListener('mouseleave', e => {
+				resetScale()
+			})
+
+			// 重置scale为1
+			function resetScale() {
+				document.querySelectorAll('.dock li').forEach(li => {
+					li.style.setProperty('--scale', 1)
+				})
+			}
+		</script>
+	</body>
+</html>
