@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./style.css" />
+	</head>
+	<body>
+		<div class="imac">
+			<!-- <h2 style="--scale: 1">Only 11.5mm. Now that's thin.</h2> -->
+			<h2 style="--scale: 1">わずか<br/>11.5 ミリ。<br/>見て、<br/>この薄さ。</h2>
+			<div class="image">
+				<!-- <img src="https://www.apple.com/105/media/us/imac-24/2021/5e004d75-3ad6-4bb9-ab59-41f891fc52f0/anim/design-hero/large/flow/flow_startframe.jpg" alt=""> -->
+				<img src="./flow_startframe.jpg" >
+			</div>
+		</div>
+		<script>
+			let isPinned = false
+			const h2 = document.querySelector('h2')
+			
+			// IntersectionObserver 获取什么时候触发sticky 返回一个数组 (([e])代表返回数组中的第一个
+			const observer = new IntersectionObserver(([e]) => {
+				isPinned = (e.intersectionRatio < 1)
+				e.target.classList.toggle('pinned', isPinned)
+			}, {
+				threshold: [1]
+			})
+
+			observer.observe(h2)
+
+			document.addEventListener('scroll', (e) => {
+				if (isPinned) {
+					let html = document.documentElement
+					// getComputedStyle().getPropertyValue()获取标签的style中的某个属性的值
+					let height = parseInt(getComputedStyle(h2).getPropertyValue('height')) + parseInt(getComputedStyle(
+						h2).getPropertyValue('margin-bottom'))
+					let marginTop = parseInt(getComputedStyle(h2).getPropertyValue('margin-top'))
+					
+					let scrolled = (html.scrollTop - marginTop) / height
+					
+					console.log(scrolled);
+
+					h2.style.setProperty('--scale', (1 - scrolled))
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -37,6 +37,7 @@ body {
 }
 
 .dock li {
+	/* 设置放大倍数 */
 	font-size: calc(6rem * var(--scale));
 	padding: 0 .5rem;
 	cursor: default;

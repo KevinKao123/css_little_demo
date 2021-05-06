@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="scalable">
+    <div class="content">
+      <img src="https://codingstartup.com/images/logo.svg" alt="">
+    </div>
+    <div class="separator">
+      <i></i><i></i>
+    </div>
+  </div>
+  <div class="main">
+    <div class="content">
+      Welcome to CodingStartup.
+    </div>
+  </div>
+  <script>
+    var startX, startWidth
+
+    // 初始状态startWidth为localStorage中的值，没有则为.scalable的宽度
+    startWidth = localStorage.getItem('scalable_width') || getScalableDivWidth()
+
+    // 将左边栏宽度赋值为startWidth
+    document.querySelector('.scalable').style.width = startWidth + 'px'
+
+    // 为两栏中线绑定监听事件，按下鼠标mousedown的时候监听mousemove
+    document.querySelector('.separator').addEventListener('mousedown', startDrag)
+
+    // 鼠标按下
+    function startDrag(e) {
+      // 鼠标当前坐标
+      startX = e.clientX
+
+      startWidth = getScalableDivWidth()
+
+      // 按下鼠标的时候监听mousemove和mouseup事件
+      document.documentElement.addEventListener('mousemove', onDrag)
+      document.documentElement.addEventListener('mouseup', stopDrag)
+    }
+
+    // 鼠标按下并移动
+    function onDrag(e) {
+      // e.clientX - startX得出鼠标移动的相对距离，加上左栏起始宽度startWidth
+      let newWidth = startWidth + e.clientX - startX
+      document.querySelector('.scalable').style.width = newWidth + 'px'
+    }
+
+    // 鼠标松开
+    function stopDrag(e) {
+      // 将数据存入localStorage，第一个参数为储存名称，第二个为值
+      localStorage.setItem('scalable_width', getScalableDivWidth())
+      // 点击松开的时候去除监听
+      document.documentElement.removeEventListener('mousemove', onDrag)
+      document.documentElement.removeEventListener('mouseup', stopDrag)
+    }
+
+    function getScalableDivWidth() {
+      // window.getComputedStyle(document.querySelector('.scalable').width输出宽度，但是带px单位
+      return parseInt(window.getComputedStyle(document.querySelector('.scalable')).width, 10)
+    }
+  </script>
+</body>
+
+</html>
