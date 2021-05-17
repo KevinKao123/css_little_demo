@@ -16,7 +16,7 @@
 	</head>
 	<body>
 		<div id="sticky">
-			
+
 			<canvas id="iphone-se" width="432" height="976"></canvas>
 
 			<div id="loading">
@@ -43,6 +43,7 @@
 				let scrolled = document.documentElement.scrollTop / (document.documentElement.scrollHeight - document
 					.documentElement.clientHeight)
 
+				// 执行把图片顺着页面卷动变化而变化
 				let frame = Math.ceil(scrolled * 84)
 				changeFrame(frame)
 
@@ -57,12 +58,15 @@
 
 			for (let i = 0; i < 85; i++) {
 				images[i] = loader.addImage(
+					// 加载85张图片
 					`https://s3-us-west-2.amazonaws.com/s.cdpn.io/2002878/iphone-se.${('0' + (i + 1)).slice(-2)}.png`)
 			}
 
 			loader.addCompletionListener(function() {
+				// 获取canvas内的2d画布
 				let context = $('#iphone-se')[0].getContext('2d')
 
+				// 加载完图片之后就可以卷动页面了
 				$('body').addClass('loaded')
 
 				// 将第一张图片加载到canvas标签
@@ -83,12 +87,15 @@
 
 			loader.start()
 
+
 			function changeFrame(frame) {
+				// frame为第几个关键帧，一共85张
 				let index = frame - 1
 				if (index < 0) index = 0
 				if (index > 84) index = 84
 
 				let context = $('#iphone-se')[0].getContext('2d')
+				// 从images中获取对应的图片，图片的坐标
 				context.drawImage(images[index], 0, 0, 432, 976)
 			}
 
@@ -104,6 +111,8 @@
 				}
 			}
 
+			// showHideText($('.left'), scrolled, 0.45, 0.52, 0.58, 0.65)
+			// showHideText($('.right'), scrolled, 0.9, 1)
 			function showHideText(el, current, showFrom, showTo, hideFrom, hideTo) {
 				if (current < showFrom) {
 					$(el).css('opacity', 0)
